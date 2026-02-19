@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useWallet } from "../context/WalletContext";
 import { getItemById, updateItemStatus, addOrder } from "../services/firebase";
-import { buyItem } from "../services/algorand";
+import { buyItem, getBalance } from "../services/algorand";
 
 function BuyerCheckout() {
   const { itemId } = useParams();
@@ -14,10 +14,20 @@ function BuyerCheckout() {
   const [buying, setBuying] = useState(false);
   const [txId, setTxId] = useState(null);
   const [error, setError] = useState("");
+  const [balance, setBalance] = useState(null);
 
   useEffect(() => {
     loadItem();
   }, [itemId]);
+
+  // fetch wallet balance whenever address changes
+  useEffect(() => {
+    if (address) {
+      getBalance(address).then(setBalance);
+    } else {
+      setBalance(null);
+    }
+  }, [address]);
 
   async function loadItem() {
     try {
@@ -42,13 +52,15 @@ function BuyerCheckout() {
     // use item's seller address, or fall back to your wallet if missing
     const seller = item.sellerAddress || "BUDQTGGDE4JTLNIPXA2IW4VBRZ2M22VMG4LLPSPCB5RMTR2GBL36KZHICE";
 
-    console.log("Buying item:", {
-      buyer: address,
-      seller: seller,
-      price: item.price,
-      itemId: item.id,
-      itemData: item,
-    });
+    // check balance before sending (price + 0.001 ALGO fee)
+    const needed = item.price + 0.001;
+    if (balance !== null && balance < needed) {
+      setError(
+        `Not enough ALGO. You need ${needed} ALGO (${item.price} + 0.001 fee) but only have ${balance.toFixed(3)} ALGO. Fund your wallet first.`
+      );
+      setBuying(false);
+      return;
+    }
 
     try {
       // send ALGO payment to the item's seller
@@ -80,6 +92,10 @@ function BuyerCheckout() {
         setError("Transaction was cancelled.");
       } else if (err.message && err.message.includes("Seller address")) {
         setError("This listing is missing a seller address. Contact the seller.");
+      } else if (err.message && err.message.includes("overspend")) {
+        setError(
+          `Not enough ALGO in your wallet. You need ${item.price + 0.001} ALGO (price + fee). Fund your wallet and try again.`
+        );
       } else {
         setError(
           "Purchase failed: " + (err.message || "Make sure you have enough ALGO and try again.")
@@ -171,6 +187,16 @@ function BuyerCheckout() {
               <p className="wallet-info">
                 Paying from: {address.slice(0, 6)}...{address.slice(-4)}
               </p>
+              {balance !== null && (
+                <p className="wallet-info" style={{ marginTop: 4 }}>
+                  Balance: <strong>{balance.toFixed(3)} ALGO</strong>
+                  {balance < item.price + 0.001 && (
+                    <span style={{ color: "#e74c3c", marginLeft: 8 }}>
+                      (need {(item.price + 0.001).toFixed(3)} ALGO)
+                    </span>
+                  )}
+                </p>
+              )}
               <button
                 onClick={handleBuy}
                 className="btn btn-primary btn-large"
