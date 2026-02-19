@@ -7,14 +7,14 @@ const algodClient = new algosdk.Algodv2(
   ""
 );
 
-const SELLER_ADDRESS = import.meta.env.VITE_SELLER_ADDRESS;
-
 /**
  * Buy an item by sending ALGO payment to the seller.
- * If a smart contract app id is set, it builds a grouped txn (app call + payment).
- * Otherwise it just does a simple payment for demo.
+ * sellerAddress comes from the item listing in Firestore.
  */
-export async function buyItem(senderAddress, priceInAlgo, itemId, peraWallet) {
+export async function buyItem(senderAddress, sellerAddress, priceInAlgo, itemId, peraWallet) {
+  if (!senderAddress) throw new Error("Buyer wallet not connected");
+  if (!sellerAddress) throw new Error("Seller address is missing from this listing");
+
   const suggestedParams = await algodClient.getTransactionParams().do();
 
   // convert algo to microalgo (1 ALGO = 1,000,000 microALGO)
@@ -23,7 +23,7 @@ export async function buyItem(senderAddress, priceInAlgo, itemId, peraWallet) {
   // build a payment transaction
   const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
     from: senderAddress,
-    to: SELLER_ADDRESS,
+    to: sellerAddress,
     amount: amount,
     note: new TextEncoder().encode(`CampusMarket:buy:${itemId}`),
     suggestedParams,

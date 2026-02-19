@@ -40,9 +40,10 @@ function BuyerCheckout() {
     setError("");
 
     try {
-      // send ALGO payment through pera wallet
+      // send ALGO payment to the item's seller
       const transactionId = await buyItem(
         address,
+        item.sellerAddress,
         item.price,
         item.id,
         peraWallet
@@ -66,9 +67,11 @@ function BuyerCheckout() {
       console.error("Purchase failed:", err);
       if (err.message && err.message.includes("cancelled")) {
         setError("Transaction was cancelled.");
+      } else if (err.message && err.message.includes("Seller address")) {
+        setError("This listing is missing a seller address. Contact the seller.");
       } else {
         setError(
-          "Purchase failed. Make sure you have enough ALGO and try again."
+          "Purchase failed: " + (err.message || "Make sure you have enough ALGO and try again.")
         );
       }
     }
