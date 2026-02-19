@@ -9,6 +9,7 @@ import {
   getDoc,
   doc,
   updateDoc,
+  setDoc,
   query,
   where,
   orderBy,
@@ -155,4 +156,35 @@ export async function getOrdersByBuyer(buyerAddress) {
 export async function updateOrderStatus(orderId, status) {
   const orderRef = doc(db, "orders", orderId);
   await updateDoc(orderRef, { status });
+}
+
+// ---- User Profiles ----
+// save or update a user's profile (keyed by wallet address)
+export async function saveUserProfile(walletAddress, profile) {
+  const profileRef = doc(db, "profiles", walletAddress);
+  await setDoc(profileRef, { ...profile, updatedAt: serverTimestamp() }, { merge: true });
+}
+
+// get a user's profile by wallet address
+export async function getUserProfile(walletAddress) {
+  if (!walletAddress) return null;
+  const profileSnap = await getDoc(doc(db, "profiles", walletAddress));
+  if (profileSnap.exists()) {
+    return profileSnap.data();
+  }
+  return null;
+}
+
+// get all orders where this address is the seller
+export async function getOrdersBySeller(sellerAddress) {
+  const q = query(
+    collection(db, "orders"),
+    where("sellerAddress", "==", sellerAddress)
+  );
+  const snapshot = await getDocs(q);
+  const orders = [];
+  snapshot.forEach((d) => {
+    orders.push({ id: d.id, ...d.data() });
+  });
+  return orders;
 }

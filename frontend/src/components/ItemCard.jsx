@@ -15,8 +15,13 @@ function ItemCard({ item }) {
         <h3>{item.title}</h3>
         <p className="item-desc">{item.description}</p>
         <div className="item-seller">
-          Seller: {item.sellerAddress?.slice(0, 4)}...{item.sellerAddress?.slice(-4)}
+          {item.sellerName
+            ? `${item.sellerName} (${item.sellerRoll || "Student"})`
+            : `${item.sellerAddress?.slice(0, 4)}...${item.sellerAddress?.slice(-4)}`}
         </div>
+        {item.pickupLocation && (
+          <div className="item-seller">Pickup: {item.pickupLocation}</div>
+        )}
         <div className="item-footer">
           <span className="item-price">{item.price} ALGO</span>
           <button

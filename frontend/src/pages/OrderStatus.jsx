@@ -59,21 +59,47 @@ function OrderStatus() {
                 <p>
                   <span className="label">Price:</span> {order.price} ALGO
                 </p>
-                <p>
-                  <span className="label">Seller:</span>{" "}
-                  {order.sellerAddress?.slice(0, 8)}...
-                  {order.sellerAddress?.slice(-4)}
-                </p>
-                <p>
-                  <span className="label">Transaction:</span>{" "}
-                  <a
-                    href={`https://testnet.explorer.perawallet.app/tx/${order.txId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {order.txId?.slice(0, 16)}...
-                  </a>
-                </p>
+
+                {/* Seller contact info for pickup */}
+                {order.sellerName && (
+                  <p><span className="label">Seller:</span> {order.sellerName} ({order.sellerRoll})</p>
+                )}
+                {order.sellerPhone && (
+                  <p><span className="label">Seller Phone:</span> {order.sellerPhone}</p>
+                )}
+                {order.pickupLocation && (
+                  <p><span className="label">Pickup Location:</span> {order.pickupLocation}</p>
+                )}
+
+                {/* Blockchain info */}
+                <div className="chain-details" style={{ marginTop: "0.5rem" }}>
+                  <p>
+                    <span className="label">Seller Wallet:</span>{" "}
+                    <span className="mono-text">
+                      {order.sellerAddress?.slice(0, 8)}...{order.sellerAddress?.slice(-4)}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="label">Your Wallet:</span>{" "}
+                    <span className="mono-text">
+                      {order.buyerAddress?.slice(0, 8)}...{order.buyerAddress?.slice(-4)}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="label">Transaction:</span>{" "}
+                    <a
+                      href={`https://testnet.explorer.perawallet.app/tx/${order.txId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="chain-link"
+                    >
+                      {order.txId?.slice(0, 16)}...
+                    </a>
+                  </p>
+                  <p>
+                    <span className="label">Network:</span> Algorand Testnet
+                  </p>
+                </div>
               </div>
             </div>
           ))}

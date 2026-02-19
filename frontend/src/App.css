@@ -627,3 +627,84 @@ a:hover {
     flex-direction: column;
   }
 }
+
+/* ---------- Blockchain Details ---------- */
+
+.chain-details {
+  background: #f4f3ff;
+  border: 1px solid #e0ddf5;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: left;
+}
+.chain-details h3 {
+  font-size: 0.95rem;
+  color: #6c5ce7;
+  margin-bottom: 0.6rem;
+}
+.chain-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #eae8f5;
+}
+.chain-row:last-child {
+  border-bottom: none;
+}
+.chain-link {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #6c5ce7;
+}
+.mono-text {
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+/* ---------- Contact Card ---------- */
+
+.contact-card {
+  background: #f0faf0;
+  border: 1px solid #c3e6c3;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: left;
+}
+.contact-card h3 {
+  font-size: 0.95rem;
+  color: #2b8a3e;
+  margin-bottom: 0.5rem;
+}
+.contact-card p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+/* ---------- Buyer Info Form (Checkout) ---------- */
+
+.buyer-info-form {
+  text-align: left;
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+.buyer-info-form .form-group {
+  margin-bottom: 0.5rem;
+}
+.buyer-info-form input {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+}
+.buyer-info-form input:focus {
+  border-color: #6c5ce7;
+}
