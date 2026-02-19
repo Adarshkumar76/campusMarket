@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getItems } from "../services/firebase";
 import ItemCard from "../components/ItemCard";
 
@@ -8,11 +8,7 @@ function ProductListing() {
   const [category, setCategory] = useState("all");
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadItems();
-  }, []);
-
-  async function loadItems() {
+  const loadItems = useCallback(async () => {
     try {
       const data = await getItems();
       setItems(data);
@@ -21,7 +17,14 @@ function ProductListing() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
+
+  // load items on mount and refresh every 30 seconds
+  useEffect(() => {
+    loadItems();
+    const interval = setInterval(loadItems, 30000);
+    return () => clearInterval(interval);
+  }, [loadItems]);
 
   // filter items based on what the user typed and selected
   const filtered = items.filter((item) => {
@@ -76,6 +79,14 @@ function ProductListing() {
           ))}
         </div>
       )}
+
+      <button
+        onClick={() => { setLoading(true); loadItems(); }}
+        className="btn btn-secondary"
+        style={{ marginTop: "1.5rem" }}
+      >
+        Refresh Items
+      </button>
     </div>
   );
 }

@@ -8,19 +8,19 @@ Built for the **RIFT 2026 Hackathon** — Web3 / Blockchain Track powered by Alg
 
 ## Live Demo
 
-> **URL:** _[Add your Vercel URL here after deploying]_
+> **URL:** https://campus-market-one.vercel.app/
 
 ---
 
 ## Demo Video
 
-> **LinkedIn Post:** _[Add your LinkedIn video post URL here]_
+> **LinkedIn Post:**  LinkedIn video url
 
 ---
 
 ## Smart Contract
 
-> **App ID (Testnet):** _[Add your App ID after deploying]_
+> **App ID (Testnet):** 
 >
 > **Explorer:** https://testnet.explorer.perawallet.app/application/YOUR_APP_ID
 
@@ -52,14 +52,14 @@ Build a peer-to-peer marketplace where students can buy and sell items using ALG
 
 ```
 ┌──────────────┐     ┌──────────────────┐     ┌──────────────────┐
-│   React App  │────▶│  Firebase         │     │  Algorand        │
+│   React App  │──── │  Firebase         │     │  Algorand        │
 │   (Vite)     │     │  Firestore        │     │  Testnet         │
 │              │     │  (items, orders)  │     │                  │
 │  - Browse    │     └──────────────────┘     │  - Smart Contract│
 │  - Sell      │                               │  - ALGO Payments │
-│  - Checkout  │──────────────────────────────▶│                  │
+│  - Checkout  │──────────────────────────────│                  │
 │  - Orders    │     ┌──────────────────┐     └──────────────────┘
-│              │────▶│  Cloudinary       │
+│              │──── │  Cloudinary       │
 └──────────────┘     │  (image uploads)  │
                      └──────────────────┘
 ```

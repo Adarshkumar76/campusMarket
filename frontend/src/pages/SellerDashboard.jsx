@@ -80,6 +80,15 @@ function SellerDashboard() {
     }
   }
 
+  async function handleRelist(itemId) {
+    try {
+      await updateItemStatus(itemId, "available");
+      await loadMyItems();
+    } catch (err) {
+      console.error("Error relisting item:", err);
+    }
+  }
+
   // if wallet not connected, show connect prompt
   if (!connected) {
     return (
@@ -200,6 +209,14 @@ function SellerDashboard() {
                       className="btn btn-small"
                     >
                       Mark Sold
+                    </button>
+                  )}
+                  {item.status === "sold" && (
+                    <button
+                      onClick={() => handleRelist(item.id)}
+                      className="btn btn-small btn-secondary"
+                    >
+                      Relist
                     </button>
                   )}
                 </div>

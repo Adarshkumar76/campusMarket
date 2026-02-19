@@ -9,6 +9,7 @@ import {
   updateDoc,
   query,
   where,
+  orderBy,
   serverTimestamp,
 } from "firebase/firestore";
 
@@ -37,7 +38,7 @@ export async function addItem(item) {
   return docRef.id;
 }
 
-// get all available items
+// get all available items (anyone can see these, no wallet needed)
 export async function getItems() {
   const q = query(
     collection(db, "items"),
@@ -51,7 +52,17 @@ export async function getItems() {
   return items;
 }
 
-// get items listed by a specific seller
+// get ALL items (for admin / debug)
+export async function getAllItems() {
+  const snapshot = await getDocs(collection(db, "items"));
+  const items = [];
+  snapshot.forEach((d) => {
+    items.push({ id: d.id, ...d.data() });
+  });
+  return items;
+}
+
+// get ALL items by seller (available + sold) so they can manage everything
 export async function getItemsBySeller(sellerAddress) {
   const q = query(
     collection(db, "items"),
@@ -61,6 +72,12 @@ export async function getItemsBySeller(sellerAddress) {
   const items = [];
   snapshot.forEach((d) => {
     items.push({ id: d.id, ...d.data() });
+  });
+  // sort: available first, then sold
+  items.sort((a, b) => {
+    if (a.status === "available" && b.status !== "available") return -1;
+    if (a.status !== "available" && b.status === "available") return 1;
+    return 0;
   });
   return items;
 }

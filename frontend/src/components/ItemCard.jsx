@@ -14,6 +14,9 @@ function ItemCard({ item }) {
       <div className="item-info">
         <h3>{item.title}</h3>
         <p className="item-desc">{item.description}</p>
+        <div className="item-seller">
+          Seller: {item.sellerAddress?.slice(0, 4)}...{item.sellerAddress?.slice(-4)}
+        </div>
         <div className="item-footer">
           <span className="item-price">{item.price} ALGO</span>
           <button
