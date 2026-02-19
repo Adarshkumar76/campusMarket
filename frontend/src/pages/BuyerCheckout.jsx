@@ -39,11 +39,22 @@ function BuyerCheckout() {
     setBuying(true);
     setError("");
 
+    // use item's seller address, or fall back to your wallet if missing
+    const seller = item.sellerAddress || "BUDQTGGDE4JTLNIPXA2IW4VBRZ2M22VMG4LLPSPCB5RMTR2GBL36KZHICE";
+
+    console.log("Buying item:", {
+      buyer: address,
+      seller: seller,
+      price: item.price,
+      itemId: item.id,
+      itemData: item,
+    });
+
     try {
       // send ALGO payment to the item's seller
       const transactionId = await buyItem(
         address,
-        item.sellerAddress,
+        seller,
         item.price,
         item.id,
         peraWallet
@@ -56,7 +67,7 @@ function BuyerCheckout() {
       // save order record
       await addOrder({
         buyerAddress: address,
-        sellerAddress: item.sellerAddress,
+        sellerAddress: seller,
         itemId: item.id,
         itemTitle: item.title,
         price: item.price,

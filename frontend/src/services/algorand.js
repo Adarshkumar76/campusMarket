@@ -20,10 +20,10 @@ export async function buyItem(senderAddress, sellerAddress, priceInAlgo, itemId,
   // convert algo to microalgo (1 ALGO = 1,000,000 microALGO)
   const amount = Math.round(priceInAlgo * 1_000_000);
 
-  // build a payment transaction
+  // build a payment transaction (algosdk v3: uses sender/receiver, not from/to)
   const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-    from: senderAddress,
-    to: sellerAddress,
+    sender: senderAddress,
+    receiver: sellerAddress,
     amount: amount,
     note: new TextEncoder().encode(`CampusMarket:buy:${itemId}`),
     suggestedParams,
@@ -48,7 +48,8 @@ export async function buyItem(senderAddress, sellerAddress, priceInAlgo, itemId,
 export async function getBalance(address) {
   try {
     const info = await algodClient.accountInformation(address).do();
-    return info.amount / 1_000_000;
+    // v3 returns amount as BigInt
+    return Number(info.amount) / 1_000_000;
   } catch (err) {
     console.log("Could not fetch balance:", err);
     return 0;
