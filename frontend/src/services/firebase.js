@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import {
-  getFirestore,
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
   collection,
   addDoc,
   getDocs,
@@ -24,7 +26,32 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+
+// enable offline persistence so firestore caches data locally
+const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
+});
+
+// ---- Local Cache Helpers ----
+// save items to localStorage for instant loading on next visit
+function cacheItems(key, items) {
+  try {
+    localStorage.setItem(key, JSON.stringify(items));
+  } catch (e) {
+    // storage full or blocked, ignore
+  }
+}
+
+export function getCachedItems(key) {
+  try {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  } catch (e) {
+    return null;
+  }
+}
 
 // ---- Items ----
 
@@ -49,6 +76,8 @@ export async function getItems() {
   snapshot.forEach((d) => {
     items.push({ id: d.id, ...d.data() });
   });
+  // cache for instant loading next time
+  cacheItems("cached_items", items);
   return items;
 }
 

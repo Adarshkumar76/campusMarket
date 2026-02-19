@@ -2,19 +2,19 @@
 
 A peer-to-peer marketplace where students on campus can buy and sell items (books, electronics, furniture) and pay using **ALGO** on the **Algorand blockchain**.
 
-Built for the **RIFT 2026 Hackathon** — Web3 / Blockchain Track powered by Algorand.
+Web3 / Blockchain Track powered by Algorand
 
 ---
 
 ## Live Demo
 
-> **URL:** https://campus-market-one.vercel.app/
+> https://campus-market-one.vercel.app/
 
 ---
 
 ## Demo Video
 
-> **LinkedIn Post:**  LinkedIn video url
+> LinkedIn video url
 
 ---
 

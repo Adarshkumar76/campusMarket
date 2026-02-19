@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
-import { getItems } from "../services/firebase";
+import { getItems, getCachedItems } from "../services/firebase";
 import ItemCard from "../components/ItemCard";
 
 function ProductListing() {
-  const [items, setItems] = useState([]);
+  // show cached items instantly while fresh data loads
+  const cached = getCachedItems("cached_items");
+  const [items, setItems] = useState(cached || []);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!cached);
 
   const loadItems = useCallback(async () => {
     try {

@@ -11,7 +11,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          firebase: ['firebase/app', 'firebase/firestore'],
           algorand: ['algosdk'],
           wallet: ['@perawallet/connect'],
         },
