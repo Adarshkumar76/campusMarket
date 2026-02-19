@@ -29,19 +29,12 @@ Build a peer-to-peer marketplace where students can buy and sell items using ALG
 
 | Field | Value |
 |-------|-------|
-| **App ID** | _Not yet deployed — see note below_ |
-| **Explorer** | `https://testnet.explorer.perawallet.app/application/<APP_ID>` |
+| **App ID** | **755802245** |
+| **Explorer** | [View on Testnet Explorer](https://testnet.explorer.perawallet.app/application/755802245) |
 | **Contract** | [`smart_contracts/marketplace/contract.py`](smart_contracts/marketplace/contract.py) |
 | **Language** | Algorand Python (Puya / algopy) |
 
-> **Where to find your App ID:**  
-> When you deploy the smart contract to testnet using AlgoKit, the deploy command prints the App ID in the terminal output. You can also find it in the [Pera Testnet Explorer](https://testnet.explorer.perawallet.app/) by searching your deployer wallet address → "Created Apps" tab. The App ID is a number like `123456789`. Currently our marketplace uses direct ALGO payment transactions (no app call needed), so the contract is written but not deployed yet. You can deploy it with:
-> ```bash
-> cd smart_contracts
-> algokit project run build
-> algokit deploy testnet
-> ```  
-> The App ID will appear in the output. Update this README once deployed.
+> Smart contract deployed to Algorand Testnet. The marketplace uses direct ALGO payment transactions for purchases, and the contract manages on-chain item listings and price tracking via BoxMap storage.
 
 ---
 
@@ -139,7 +132,7 @@ VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
 VITE_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
 
 # Algorand (optional — used in smart contract deploy)
-VITE_ALGORAND_APP_ID=0
+VITE_ALGORAND_APP_ID=755802245
 ```
 
 ### Run Locally
@@ -185,7 +178,7 @@ Go to **Orders** tab to see all your past purchases with blockchain transaction 
 
 ## Known Limitations
 
-- Smart contract is written but not yet deployed to testnet (marketplace currently uses direct ALGO payment transactions, which are fully on-chain)
+- Smart contract deployed to testnet (App ID: 755802245) — marketplace uses direct ALGO payment transactions which are fully on-chain
 - No escrow — payment goes directly from buyer to seller wallet
 - No user authentication beyond wallet address
 - Images stored on Cloudinary, not IPFS/on-chain
