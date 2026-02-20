@@ -50,7 +50,7 @@ function ProductListing() {
       <p className="subtitle">Grow your business online with us. Buy and sell stuff on campus securely using ALGO smart contracts.</p>
 
       <div className="hero-search-container">
-        <h3>Search your favorite services</h3>
+        <h3>Search for items on the blockchain</h3>
         <div className="filters">
           <input
             type="text"
@@ -98,23 +98,23 @@ function ProductListing() {
       </button>
 
       <div className="info-section">
-        <h2>HOW WE DELIVER HIGH QUALITY WORK</h2>
+        <h2>WHY CHOOSE OUR BLOCKCHAIN MARKETPLACE</h2>
         <div className="info-grid">
           <div className="info-card">
-            <h4>Communicate with customer</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h4>Decentralized Payments</h4>
+            <p>All transactions are processed directly on the Algorand blockchain. No middlemen, no hidden fees, just pure peer-to-peer crypto transfers.</p>
           </div>
           <div className="info-card">
-            <h4>Design & Develop</h4>
-            <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+            <h4>Smart Contract Security</h4>
+            <p>Our custom Algorand smart contracts ensure that item listings and prices are securely tracked and verified on-chain before any purchase.</p>
           </div>
           <div className="info-card">
-            <h4>Website creation process</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h4>Instant Settlement</h4>
+            <p>Thanks to Algorand's high-speed network, your ALGO payments settle in under 4 seconds, making buying and selling lightning fast.</p>
           </div>
           <div className="info-card">
-            <h4>Testing process</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h4>Transparent Records</h4>
+            <p>Every purchase generates a permanent, verifiable blockchain receipt. You can track your transaction history directly on the Algorand explorer.</p>
           </div>
         </div>
       </div>
