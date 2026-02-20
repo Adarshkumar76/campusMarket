@@ -162,8 +162,10 @@ Go to the **Orders** tab to see all your past purchases with blockchain transact
 
 | Name | Role |
 |------|------|
-| **Adarsh Kumar** | Full-Stack Developer - Frontend, Smart Contract, Blockchain Integration |
-| _Add teammate_ | _Role_ |
+| **Adarsh Kumar singh** | Full-Stack Developer, Blockchain Integration |
+| **RajKumar Gupta** | Full-Stack Developer - Frontend, Smart Contract, |
+| **Prince Kumar** | Full-Stack Developer  |
+| **Sonali Gupta** | Frontend |
 
 ---
 
