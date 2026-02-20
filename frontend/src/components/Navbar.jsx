@@ -7,13 +7,14 @@ function Navbar() {
   return (
     <nav className="navbar">
       <Link to="/" className="nav-logo">
-        🏪 Campus Market
+        <span>CAMPUS</span> MARKET
       </Link>
 
       <div className="nav-links">
         <Link to="/">Browse</Link>
         <Link to="/sell">Sell</Link>
         <Link to="/orders">Orders</Link>
+        <Link to="/contact">Contact</Link>
       </div>
 
       <div className="nav-wallet">

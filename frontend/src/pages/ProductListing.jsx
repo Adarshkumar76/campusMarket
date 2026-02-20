@@ -42,28 +42,35 @@ function ProductListing() {
 
   return (
     <div className="page">
-      <h1>Campus Marketplace</h1>
-      <p className="subtitle">Buy and sell stuff on campus using ALGO</p>
+      <h1>
+        <span className="outline-text">CAMPUS</span><br />
+        MARKETPLACE<br />
+        <span style={{ color: '#ff007f' }}>@</span> ALGORAND
+      </h1>
+      <p className="subtitle">Grow your business online with us. Buy and sell stuff on campus securely using ALGO smart contracts.</p>
 
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Search items..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="search-input"
-        />
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="category-select"
-        >
-          <option value="all">All Categories</option>
-          <option value="books">Books</option>
-          <option value="electronics">Electronics</option>
-          <option value="furniture">Furniture</option>
-          <option value="other">Other</option>
-        </select>
+      <div className="hero-search-container">
+        <h3>Search your favorite services</h3>
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="search-input"
+          />
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="category-select"
+          >
+            <option value="all">All Categories</option>
+            <option value="books">Books</option>
+            <option value="electronics">Electronics</option>
+            <option value="furniture">Furniture</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
       </div>
 
       {filtered.length === 0 ? (
@@ -85,10 +92,32 @@ function ProductListing() {
       <button
         onClick={() => { setLoading(true); loadItems(); }}
         className="btn btn-secondary"
-        style={{ marginTop: "1.5rem" }}
+        style={{ marginTop: "2rem", marginBottom: "4rem" }}
       >
         Refresh Items
       </button>
+
+      <div className="info-section">
+        <h2>HOW WE DELIVER HIGH QUALITY WORK</h2>
+        <div className="info-grid">
+          <div className="info-card">
+            <h4>Communicate with customer</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div className="info-card">
+            <h4>Design & Develop</h4>
+            <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+          </div>
+          <div className="info-card">
+            <h4>Website creation process</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          <div className="info-card">
+            <h4>Testing process</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

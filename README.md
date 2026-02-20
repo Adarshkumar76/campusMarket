@@ -1,6 +1,4 @@
-# Campus Marketplace — Crypto Payments on Algorand
-
-> **RIFT 2026 Hackathon | PS4 — Web3 / Blockchain Track powered by Algorand**
+# Campus Marketplace - Crypto Payments on Algorand
 
 A peer-to-peer campus marketplace where students buy and sell items (books, electronics, furniture) and pay with **ALGO** on the **Algorand blockchain**. Transactions are instant, transparent, and verifiable on-chain. Buyer and seller profiles (name, roll no., phone, pickup location) are exchanged after purchase so items can be picked up in person.
 
@@ -8,7 +6,7 @@ A peer-to-peer campus marketplace where students buy and sell items (books, elec
 
 ## Problem Statement
 
-**PS4 — Algorand Web3 Track:**  
+**PS4 - Algorand Web3 Track:**  
 Build a peer-to-peer marketplace where students can buy and sell items using ALGO or stablecoins. The platform includes product listings, search functionality, and integrated crypto checkout.
 
 ---
@@ -21,11 +19,11 @@ Build a peer-to-peer marketplace where students can buy and sell items using ALG
 
 ## Demo Video
 
-**LinkedIn:** _[Add your LinkedIn video URL here]_
+**LinkedIn:** 
 
 ---
 
-## Smart Contract — App ID (Testnet)
+## Smart Contract - App ID (Testnet)
 
 | Field | Value |
 |-------|-------|
@@ -34,48 +32,18 @@ Build a peer-to-peer marketplace where students can buy and sell items using ALG
 | **Contract** | [`smart_contracts/marketplace/contract.py`](smart_contracts/marketplace/contract.py) |
 | **Language** | Algorand Python (Puya / algopy) |
 
-> Smart contract deployed to Algorand Testnet. The marketplace uses direct ALGO payment transactions for purchases, and the contract manages on-chain item listings and price tracking via BoxMap storage.
 
 ---
 
-## Architecture Overview
+## How it works
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                        USER (Browser)                            │
-│                                                                  │
-│  ┌────────────┐   ┌────────────────┐   ┌──────────────────────┐ │
-│  │ React App  │   │  Pera Wallet   │   │  Algorand Testnet    │ │
-│  │ (Vite)     │◄─►│  Extension     │◄─►│  (AlgoNode RPC)      │ │
-│  └─────┬──────┘   └────────────────┘   └──────────┬───────────┘ │
-│        │                                           │             │
-│        │  items, orders,                           │  ALGO       │
-│        │  profiles                                 │  payment    │
-│        ▼                                           ▼             │
-│  ┌─────────────┐                        ┌──────────────────────┐ │
-│  │  Firebase   │                        │  Smart Contract      │ │
-│  │  Firestore  │                        │  (Algorand Python)   │ │
-│  │  + cache    │                        │  marketplace.py      │ │
-│  └─────────────┘                        └──────────────────────┘ │
-│        │                                                         │
-│        │  images                                                 │
-│        ▼                                                         │
-│  ┌─────────────┐                                                 │
-│  │ Cloudinary  │                                                 │
-│  │ (CDN)       │                                                 │
-│  └─────────────┘                                                 │
-└──────────────────────────────────────────────────────────────────┘
-```
-
-**How it works:**
-
-1. **Seller** connects Pera Wallet → fills profile (name, roll, phone, pickup location) → lists item with price, image, description
-2. Item data → Firebase Firestore. Image → Cloudinary CDN.
-3. **Buyer** browses items, picks one, connects wallet, enters their contact info
-4. Buyer clicks "Pay" → Pera Wallet signs an ALGO payment transaction → sent to Algorand Testnet → confirmed on-chain
-5. Order saved to Firestore with **on-chain transaction ID**, buyer + seller contact info
-6. Buyer sees **blockchain receipt** (tx ID, wallets, amount) + **seller pickup info**
-7. Seller sees **incoming orders** with buyer name, roll, phone so they can arrange handoff
+1. **Seller** connects Pera Wallet, fills out their profile (name, roll number, phone, pickup location), and lists an item with a price, image, and description.
+2. Item data is saved to Firebase Firestore. The image is saved to Cloudinary.
+3. **Buyer** browses items, picks one, connects their wallet, and enters their contact info.
+4. Buyer clicks "Pay" and Pera Wallet signs an ALGO payment transaction which is sent to the Algorand Testnet and confirmed on the blockchain.
+5. The order is saved to Firestore with the **on-chain transaction ID** and the buyer and seller contact info.
+6. The buyer sees a **blockchain receipt** (transaction ID, wallets, amount) and the **seller's pickup info**.
+7. The seller sees **incoming orders** with the buyer's name, roll number, and phone number so they can arrange to hand off the item.
 
 ---
 
@@ -92,7 +60,7 @@ Build a peer-to-peer marketplace where students can buy and sell items using ALG
 | Database | **Firebase Firestore** | Items, orders, user profiles (with offline cache) |
 | Images | **Cloudinary** | Upload & CDN for product photos |
 | Hosting | **Vercel** | Auto-deploy from GitHub |
-| RPC Node | **AlgoNode** (free) | Algorand testnet API — no API key needed |
+| RPC Node | **AlgoNode** (free) | Algorand testnet API - no API key needed |
 
 ---
 
@@ -101,7 +69,7 @@ Build a peer-to-peer marketplace where students can buy and sell items using ALG
 ### Prerequisites
 
 - **Node.js 18+**
-- **Pera Wallet** mobile app (set to Testnet) — [Download](https://perawallet.app/)
+- **Pera Wallet** mobile app (set to Testnet) - [Download](https://perawallet.app/)
 - **Test ALGO** from the faucet: https://bank.testnet.algorand.network
 - **Firebase** project with Firestore enabled
 - **Cloudinary** account (free tier) with an **unsigned** upload preset
@@ -131,7 +99,7 @@ VITE_FIREBASE_APP_ID=your_app_id
 VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
 VITE_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset
 
-# Algorand (optional — used in smart contract deploy)
+# Algorand (optional - used in smart contract deploy)
 VITE_ALGORAND_APP_ID=755802245
 ```
 
@@ -155,31 +123,34 @@ npm run preview  # preview production build locally
 ## Usage Guide
 
 ### 1. Connect Wallet
-Open the app → click **Connect Wallet** → approve in Pera Wallet.
+Open the app, click **Connect Wallet**, and approve it in your Pera Wallet.
 
 ### 2. Sell an Item
-Go to **Sell** tab → fill in your profile (name, roll no., phone, pickup location) → add item title, price (in ALGO), description, image → click **List Item**.
+Go to the **Sell** tab, fill in your profile (name, roll number, phone, pickup location), add the item title, price (in ALGO), description, and image, then click **List Item**.
 
 ### 3. Browse & Buy
-Go to **Browse** tab → search or filter by category → click **Buy Now** → enter your name and roll number → click **Pay X ALGO** → approve transaction in Pera Wallet.
+Go to the **Browse** tab, search or filter by category, click **Buy Now**, enter your name and roll number, click **Pay X ALGO**, and approve the transaction in your Pera Wallet.
 
 ### 4. After Purchase
-- **Buyer** sees a blockchain receipt (Tx ID, wallets, amount) + seller's contact info for pickup.
-- **Seller** sees an incoming order with buyer's name, roll, phone on their dashboard.
+- **Buyer** sees a blockchain receipt (Transaction ID, wallets, amount) and the seller's contact info for pickup.
+- **Seller** sees an incoming order with the buyer's name, roll number, and phone number on their dashboard.
 
 ### 5. Track Orders
-Go to **Orders** tab to see all your past purchases with blockchain transaction links.
+Go to the **Orders** tab to see all your past purchases with blockchain transaction links.
 
 ### Screenshots
 
-> _Add screenshots of: Browse page, Checkout page, Blockchain receipt, Seller dashboard_
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
 
 ---
 
 ## Known Limitations
 
-- Smart contract deployed to testnet (App ID: 755802245) — marketplace uses direct ALGO payment transactions which are fully on-chain
-- No escrow — payment goes directly from buyer to seller wallet
+- Smart contract deployed to testnet (App ID: 755802245) - marketplace uses direct ALGO payment transactions which are fully on-chain
+- No escrow - payment goes directly from buyer to seller wallet
 - No user authentication beyond wallet address
 - Images stored on Cloudinary, not IPFS/on-chain
 - Only supports ALGO payments (no ASA stablecoin support yet)
@@ -191,7 +162,7 @@ Go to **Orders** tab to see all your past purchases with blockchain transaction 
 
 | Name | Role |
 |------|------|
-| **Adarsh Kumar** | Full-Stack Developer — Frontend, Smart Contract, Blockchain Integration |
+| **Adarsh Kumar** | Full-Stack Developer - Frontend, Smart Contract, Blockchain Integration |
 | _Add teammate_ | _Role_ |
 
 ---
